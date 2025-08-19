@@ -1,0 +1,59 @@
+
+[
+  {
+    "title": "1984",
+    "themes": ["freedom", "control", "surveillance", "truth"],
+    "summary": "A dystopia where a totalitarian state rewrites truth and polices thought. Winston Smith rebels in small ways, searching for freedom and meaning under constant surveillance."
+  },
+  {
+    "title": "The Hobbit",
+    "themes": ["friendship", "adventure", "courage", "fantasy"],
+    "summary": "Homebody hobbit Bilbo joins dwarves on a quest to reclaim their treasure from the dragon Smaug. Along the road he discovers wit, bravery, and unlikely friends."
+  },
+  {
+    "title": "Brave New World",
+    "themes": ["technology", "control", "pleasure", "individuality"],
+    "summary": "A society engineered for stability uses conditioning and pleasure to suppress individuality. A few characters question what it means to be truly human."
+  },
+  {
+    "title": "Fahrenheit 451",
+    "themes": ["censorship", "conformity", "knowledge"],
+    "summary": "Fireman Montag burns books in a future that fears ideas. Meeting curious neighbors, he begins to question censorship and seeks knowledge and purpose."
+  },
+  {
+    "title": "To Kill a Mockingbird",
+    "themes": ["justice", "race", "empathy", "coming of age"],
+    "summary": "Scout Finch grows up in the Jim Crow South while her father defends a Black man wrongly accused. The story explores empathy, courage, and moral growth."
+  },
+  {
+    "title": "The Catcher in the Rye",
+    "themes": ["alienation", "identity", "adolescence"],
+    "summary": "Holden Caulfield wanders New York after leaving school, wrestling with grief, phoniness, and the loss of innocence."
+  },
+  {
+    "title": "The Name of the Wind",
+    "themes": ["magic", "music", "destiny", "coming of age"],
+    "summary": "Kvothe recounts his life—street urchin to gifted arcanist—seeking truth about mysterious beings and the myths surrounding his name."
+  },
+  {
+    "title": "The Alchemist",
+    "themes": ["destiny", "journey", "purpose", "faith"],
+    "summary": "Shepherd Santiago follows recurring dreams across deserts in search of treasure, learning to listen to omens and his heart."
+  },
+  {
+    "title": "The Little Prince",
+    "themes": ["friendship", "imagination", "loss", "wonder"],
+    "summary": "A pilot crashes in the desert and meets a curious prince from a tiny planet. Simple encounters reveal tender truths about love and seeing with the heart."
+  },
+  {
+    "title": "Dune",
+    "themes": ["power", "ecology", "prophecy", "politics"],
+    "summary": "On the desert world Arrakis, Paul Atreides confronts betrayal, survival, and destiny amid spice-fueled politics and ecological struggle."
+  },
+  {
+    "title": "The Lion, the Witch and the Wardrobe",
+    "themes": ["good vs evil", "sacrifice", "faith", "fantasy"],
+    "summary": "Four siblings discover Narnia, trapped in winter by a cruel witch. With Aslan, they learn about courage, sacrifice, and hope."
+  }
+]
+

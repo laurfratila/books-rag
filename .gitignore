@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+.env.*
+# Node (we'll add frontend later)
+node_modules/
+dist/
+# OS/Editors
+.DS_Store
+.vscode/
+.idea/
+
+# Secrets
+.env
+backend/.env
+
+# Local vector store (generated)
+backend/.chroma/
