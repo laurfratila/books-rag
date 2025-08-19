@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .clients.openlibrary import search_books, BookHit
 from fastapi import HTTPException
 from .rag.query import rag_search, get_summary_by_title
+from .llm.recommend import recommend_with_tools
 
 app = FastAPI(title="Books RAG API", version="0.1.0")
 
@@ -43,3 +44,12 @@ def api_summary(title: str):
     if not s:
         raise HTTPException(status_code=404, detail="Title not found")
     return {"title": title, "summary": s}
+
+@app.get("/api/recommend_chat")
+def api_recommend_chat(q: str, k: int = 3):
+    if not q.strip():
+        raise HTTPException(status_code=400, detail="Empty query")
+    result = recommend_with_tools(q.strip(), k=k)
+    if not result.get("title"):
+        raise HTTPException(status_code=404, detail="No recommendation available")
+    return result
