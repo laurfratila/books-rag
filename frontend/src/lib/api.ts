@@ -10,3 +10,22 @@ export async function searchBooks(q: string, limit = 10): Promise<BookHit[]> {
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   return res.json()
 }
+
+export type RagHit = { title: string; snippet: string; score?: number | null }
+export async function ragSearch(q: string, k = 3): Promise<RagHit[]> {
+  const res = await fetch(`/api/rag/search?q=${encodeURIComponent(q)}&k=${k}`)
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  return res.json()
+}
+
+export type RecommendResult = {
+  title: string
+  summary: string
+  message: string
+  candidates: string[]
+}
+export async function recommendChat(q: string, k = 3): Promise<RecommendResult> {
+  const res = await fetch(`/api/recommend_chat?q=${encodeURIComponent(q)}&k=${k}`)
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  return res.json()
+}
