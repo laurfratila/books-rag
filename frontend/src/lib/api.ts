@@ -29,3 +29,30 @@ export async function recommendChat(q: string, k = 3): Promise<RecommendResult> 
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   return res.json()
 }
+
+
+// add at the bottom (keep existing exports)
+
+export type UnifiedAnswer = {
+  query: string
+  title: string
+  reason_message: string
+  summary: string
+  details?: {
+    title?: string
+    authors?: string[]
+    year?: number
+    openlibrary_url?: string
+    cover_url?: string
+  }
+  rag_candidates: { title: string; snippet: string; score?: number | null }[]
+  k: number
+  source: string
+}
+
+export async function askUnified(q: string, k = 3): Promise<UnifiedAnswer> {
+  const res = await fetch(`/api/answer?q=${encodeURIComponent(q)}&k=${k}`)
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  return res.json()
+}
+
