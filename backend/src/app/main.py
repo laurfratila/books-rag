@@ -8,6 +8,7 @@ from .rag.query import rag_search, get_summary_by_title
 from .llm.recommend import recommend_with_tools
 from fastapi import Query
 from .answer.unified import unified_answer
+from .safety.guard import ensure_clean_or_raise
 
 app = FastAPI(title="Books RAG API", version="0.1.0")
 
@@ -48,9 +49,12 @@ def api_summary(title: str):
     return {"title": title, "summary": s}
 
 @app.get("/api/recommend_chat")
-def api_recommend_chat(q: str, k: int = 3):
-    if not q.strip():
-        raise HTTPException(status_code=400, detail="Empty query")
+def api_recommend_chat(q: str = Query(min_length=1), k: int = 3):
+    try:
+        ensure_clean_or_raise(q)
+    except ValueError as e:
+        # Polite block; do not call the LLM.
+        raise HTTPException(status_code=400, detail=str(e))
     result = recommend_with_tools(q.strip(), k=k)
     if not result.get("title"):
         raise HTTPException(status_code=404, detail="No recommendation available")
@@ -59,6 +63,10 @@ def api_recommend_chat(q: str, k: int = 3):
 
 @app.get("/api/answer")
 def api_answer(q: str = Query(min_length=1), k: int = 3):
+    try:
+        ensure_clean_or_raise(q)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     result = unified_answer(q.strip(), k=k)
     if not result.get("title"):
         raise HTTPException(status_code=404, detail="No recommendation available")
