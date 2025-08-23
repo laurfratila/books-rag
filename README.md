@@ -1,4 +1,4 @@
-```markdown
+
 # Smart Librarian — RAG + LLM + Open Library
 
 A full-stack book recommender.
@@ -29,7 +29,7 @@ Frontend (React) ── /api/* ──> FastAPI (Python)
 ├─ RAG retriever (Chroma + embeddings)
 ├─ LLM (4o-mini / 4.1-mini / 4.1-nano)
 └─ Tool: get_summary_by_title(title)
-```
+
 
 **Unified flow (`/api/answer`):**
 
