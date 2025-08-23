@@ -52,7 +52,13 @@ export type UnifiedAnswer = {
 
 export async function askUnified(q: string, k = 3): Promise<UnifiedAnswer> {
   const res = await fetch(`/api/answer?q=${encodeURIComponent(q)}&k=${k}`)
-  if (!res.ok) throw new Error(`HTTP ${res.status}`)
-  return res.json()
+  let body: any = null
+  try { body = await res.json() } catch {}
+  if (!res.ok) {
+    // show the backend message (e.g., safety guard) instead of “HTTP 400”
+    throw new Error(body?.detail ?? `HTTP ${res.status}`)
+  }
+  return body
 }
+
 

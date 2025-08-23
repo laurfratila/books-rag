@@ -14,4 +14,6 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 EMBED_MODEL = os.getenv("EMBED_MODEL", "text-embedding-3-small")
 CHAT_MODEL = os.getenv("CHAT_MODEL", "gpt-4o-mini")
 
+SAFETY_GUARD = os.getenv("SAFETY_GUARD", "true").lower() == "true"
+
 
