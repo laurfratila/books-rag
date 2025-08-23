@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { askUnified, type UnifiedAnswer } from './lib/api'
+import { isTtsAvailable, speakText, cancelSpeech } from './lib/tts'
 
 export default function App() {
   const [q, setQ] = useState('')
@@ -7,9 +8,12 @@ export default function App() {
   const [err, setErr] = useState<string | null>(null)
   const [ans, setAns] = useState<UnifiedAnswer | null>(null)
 
+  const [isSpeaking, setIsSpeaking] = useState(false)
+  const ttsOk = isTtsAvailable()
+
   async function onAsk() {
     if (!q.trim()) return
-    setLoading(true); setErr(null); setAns(null)
+    setLoading(true); setErr(null); setAns(null); setIsSpeaking(false); cancelSpeech()
     try {
       const a = await askUnified(q.trim(), 3)
       setAns(a)
@@ -20,10 +24,34 @@ export default function App() {
     }
   }
 
+  function onListen() {
+    if (!ans) return
+    if (isSpeaking) {
+      cancelSpeech()
+      setIsSpeaking(false)
+      return
+    }
+    const text = [
+      ans.title ? `Recommended: ${ans.title}.` : '',
+      ans.reason_message || '',
+      ans.summary || ''
+    ].filter(Boolean).join('\n\n')
+    speakText(text, {
+      rate: 1,
+      pitch: 1,
+      onend: () => setIsSpeaking(false),
+      onerror: () => setIsSpeaking(false),
+    })
+    setIsSpeaking(true)
+  }
+
+  // Stop speaking when navigating away or answer changes
+  useEffect(() => () => cancelSpeech(), [])
+
   return (
     <div style={{ maxWidth: 960, margin: '2rem auto', padding: '0 1rem', fontFamily: 'Inter, system-ui, Arial' }}>
       <h1>Smart Librarian</h1>
-      <p style={{ color: '#666' }}>Ask once → RAG + LLM + Open Library.</p>
+      <p style={{ color: '#666' }}>Ask once → RAG + LLM + Open Library. (Now with a Listen button 🎧)</p>
 
       <div style={{ display: 'flex', gap: 8 }}>
         <input
@@ -38,6 +66,7 @@ export default function App() {
       </div>
 
       {err && <p style={{ color: 'crimson', marginTop: 12 }}>Error: {err}</p>}
+      {loading && <p style={{ marginTop: 12 }}>Loading…</p>}
 
       {ans && (
         <div style={{
@@ -55,7 +84,7 @@ export default function App() {
             )}
           </div>
           <div>
-            <h2 style={{ margin: 0 }}>{ans.title}</h2>
+            <h2 style={{ margin: 0 }}>{ans.title || 'No recommendation found'}</h2>
             <p style={{ margin: '6px 0', color: '#555' }}>
               {(ans.details?.authors ?? []).join(', ')}
               {ans.details?.year ? ` • ${ans.details.year}` : ''}
@@ -63,6 +92,15 @@ export default function App() {
                 <> • <a href={ans.details.openlibrary_url} target="_blank">Open Library ↗</a></>
               ) : null}
             </p>
+
+            {/* TTS controls */}
+            {ttsOk && ans.title && (
+              <button onClick={onListen} style={{ padding: '0.4rem 0.8rem', margin: '4px 0' }}>
+                {isSpeaking ? 'Stop' : 'Listen'}
+              </button>
+            )}
+            {!ttsOk && <p style={{ color: '#999' }}>TTS not supported in this browser.</p>}
+
             <p style={{ whiteSpace: 'pre-wrap', marginTop: 12 }}>{ans.reason_message}</p>
             <h3 style={{ marginTop: 16 }}>Full summary</h3>
             <p style={{ whiteSpace: 'pre-wrap' }}>{ans.summary}</p>
