@@ -196,7 +196,8 @@ When enabled, offensive input returns **HTTP 400** with a polite message and doe
 Create a `docs/` folder and add:
 
 - `docs/home.png` — landing + input  
-- `docs/result.png` — recommendation card with cover
+- `docs/result_card_1.png` — recommendation card with cover
+- `docs/result_card_2.png` — recommendation card with cover
 
 Reference them here:
 
