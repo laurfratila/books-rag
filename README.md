@@ -13,10 +13,10 @@ A full-stack book recommender.
 
 ## Features
 
-- 🔎 **One-shot Ask:** RAG retrieval → LLM picks one → local summary tool → Open Library enrichment (authors/year/cover/link)
-- 🎤 **Voice input (STT)** and 🎧 **Listen (TTS)** in the browser
-- 🛡️ **Safety guard** (optional) politely blocks offensive queries before hitting the LLM
-- 🔍 Transparent **RAG candidates** included in responses for debugging
+-  **One-shot Ask:** RAG retrieval → LLM picks one → local summary tool → Open Library enrichment (authors/year/cover/link)
+-  **Voice input (STT)** and 🎧 **Listen (TTS)** in the browser
+-  **Safety guard** (optional) politely blocks offensive queries before hitting the LLM
+-  Transparent **RAG candidates** included in responses for debugging
 
 ---
 
