@@ -203,7 +203,8 @@ Reference them here:
 
 ```md
 ![Home](docs/home.png)
-![Result](docs/result.png)
+![Result](docs/result_card_1.png)
+![Result](docs/result_card_2.png)
 ```
 
 ---
